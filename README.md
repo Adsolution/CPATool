@@ -1,4 +1,4 @@
-# HOW TO USE:
+### HOW TO USE:
 
 1. Place the exported .obj of your level in the same place you would have the MOD exported (World\levels\[levelname]).
 
@@ -7,7 +7,7 @@
 3. Use Max23Dos to convert the new .mod file as you would have before.
 
 
-# LEVEL DESIGN WORKFLOW / STUFF TO KNOW:
+### LEVEL DESIGN WORKFLOW / STUFF TO KNOW:
 
 - Since OBJ has no hierarchy, sectors are simply defined by prepending a number (eg 01_ before an object's name. If you don't prepend a number, it'll default to the first sector.
 
