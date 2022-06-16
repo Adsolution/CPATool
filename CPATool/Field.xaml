@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="CPATool.Field"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CPATool"
+             mc:Ignorable="d" 
+              MinHeight="20" d:DesignWidth="350">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Column="0" Padding="5, 0" x:Name="label_name" VerticalAlignment="Center" Text="Name" Foreground="#FFA2A2A2"/>
+        <TreeView Grid.Column="1" x:Name="tree" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
+        <TextBlock Grid.Column="1" Padding="5, 0" x:Name="label_value" VerticalAlignment="Center" Text="Okaylol" Foreground="#FFA29D6A"/>
+    </Grid>
+</UserControl>

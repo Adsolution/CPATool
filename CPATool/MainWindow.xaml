@@ -1,0 +1,86 @@
+﻿<Window x:Class="CPATool.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CPATool"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="CPA Tool" Height="750" MinHeight="79" Width="550" MinWidth="550" ResizeMode="CanResize" Background="#FF2C2C2C">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="309*"/>
+            <ColumnDefinition Width="233*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0"/>
+            <RowDefinition Height="0"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Grid.ColumnSpan="2">
+            <Button x:Name="button_load" Content="Open" Margin="10,10,0,0" VerticalAlignment="Top" Height="21" HorizontalAlignment="Left" Width="90" Background="#FF1B1B1B" Foreground="#FFD8D8D8" Click="button_load_Click"/>
+            <Button x:Name="button_export" Content="Convert" Margin="212,10,0,0" VerticalAlignment="Top" Height="21" Background="#FF1B1B1B" Foreground="#FFD8D8D8" HorizontalAlignment="Left" Width="90" Click="button_export_Click"/>
+            <Label Margin="105,-8,0,0" Padding="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="38" VerticalAlignment="Top" Content="→" FontSize="36" Foreground="#FF6E6E6E" HorizontalAlignment="Left" Width="35"/>
+            <ComboBox x:Name="combo_filetype" Margin="145,10,0,0" VerticalAlignment="Top" Height="21" Background="#FF1B1B1B" Foreground="Black" HorizontalAlignment="Left" Width="62" SelectedIndex="0">
+                <sys:String>MOD</sys:String>
+                <sys:String>OBJ</sys:String>
+            </ComboBox>
+        </Grid>
+
+
+        <Grid Grid.Row="1" Margin="3" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="56*"/>
+                <RowDefinition Height="115*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.75*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+
+            <Grid Grid.Column="1" Margin="0,35,0,0" Grid.RowSpan="2">
+                <TextBlock x:Name="ins_name" Text="" HorizontalAlignment="Left" Margin="10,3,0,0" VerticalAlignment="Top" Width="Auto" FontSize="18" Foreground="#FF6E6E6E"/>
+                <StackPanel Orientation="Vertical" x:Name="list_properties" Height="Auto" VerticalAlignment="Top" Margin="10,35,0,0"/>
+            </Grid>
+
+            <Grid Grid.Column="0" Grid.RowSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+
+                <TextBlock Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Height="Auto" Width="Auto" FontSize="20" Foreground="#FF6E6E6E" Text="Imported Data" />
+                <TextBlock Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Height="Auto" Width="Auto" FontSize="20" Foreground="#FF6E6E6E" Text="Export Hierarchy"/>
+
+                <TreeView Grid.Row="1" x:Name="tree_data" Foreground="#FFE2E2E2" SelectedItemChanged="tree_data_SelectedItemChanged" BorderBrush="#FF464646">
+                    <TreeView.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF303030"/>
+                            <GradientStop Color="#FF212121" Offset="1"/>
+                        </LinearGradientBrush>
+                    </TreeView.Background>
+                </TreeView>
+
+                <TreeView Grid.Row="3" x:Name="tree_hier" Foreground="#FFE2E2E2" BorderBrush="#FF464646">
+                    <TreeView.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF303030"/>
+                            <GradientStop Color="#FF212121" Offset="1"/>
+                        </LinearGradientBrush>
+                    </TreeView.Background>
+                </TreeView>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="3" Grid.ColumnSpan="2">
+            <ProgressBar x:Name="progbar" SmallChange="5" Value="50" Background="#FF212121" BorderBrush="#FF6E6E6E" Foreground="#FF005F1E"/>
+            <TextBlock x:Name="progtext" Text="Done" HorizontalAlignment="Left" Width="Auto" Margin="10,0" VerticalAlignment="Center" FontSize="14" Foreground="#4CFFFFFF"/>
+        </Grid>
+    </Grid>
+</Window>
