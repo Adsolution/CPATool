@@ -211,7 +211,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ANCIENT.cs" />
     <Compile Include="FileTypes.cs" />
     <Compile Include="TextWrite.cs" />
     <Page Include="Field.xaml">

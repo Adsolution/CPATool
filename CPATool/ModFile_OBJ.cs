@@ -97,6 +97,33 @@ namespace CPATool {
 
 
 
+        Geometric newObj(string name) {
+            var g = AddOrGetObject<Geometric>(name);
+            var root = GetObject<SuperObject>("Root");
+
+            // SPO & Matrix
+            var s = AddOrGetObject<SuperObject>("SPO_" + g.name);
+            AddOrGetObject<Matrix>("SPO_" + g.name);
+            s.matrix = "SPO_" + g.name;
+            s.geometric = g.name;
+
+            // Name-based sector linking/generation
+            if (!int.TryParse(g.name.Split('_')[0], out int secnum))
+                secnum = 1;
+            var sct = AddOrGetObject<SuperObject>("SPO_sct" + secnum.ToString("00"));
+
+            if (sct.matrix == null) {
+                var sctMat = AddOrGetObject<Matrix>(sct.name);
+                sct.matrix = sctMat.name;
+                root.children.Add(sctMat.name);
+            }
+            if (!sct.children.Contains(s.name))
+                sct.children.Add(s.name);
+
+            return g;
+        }
+
+
 
         public void ImportOBJ(string path) {
             UniversalImportStuff(path, true);
@@ -111,6 +138,7 @@ namespace CPATool {
             ElementIndexedTriangles e = null;
             Material m = null;
             string mtllib = null;
+            bool smooth = true;
 
             var verts = new List<Vector3>();
             var nrms = new List<Vector3>();
@@ -129,12 +157,20 @@ namespace CPATool {
 
                 switch (line[0]) {
                     case "mtllib": mtllib = line[1]; break;
+
                     case "v": verts.Add(new Vector3(float.Parse(line[1]), float.Parse(line[2]), float.Parse(line[3]))); break;
                     case "vn": nrms.Add(new Vector3(float.Parse(line[1]), float.Parse(line[2]), float.Parse(line[3]))); break;
                     case "vt": uvs.Add(new Vector2(float.Parse(line[1]), float.Parse(line[2]))); break;
 
+                    //case "s": smooth = line[1] != "off"; break;
+
+                    case "o": g = newObj(line[1]); break;
+
+
                     case "usemtl":
-                        line[1] = line[1];
+                        if (g == null)
+                            g = newObj("Object_" + Guid.NewGuid().ToString().ToUpper().Substring(0, 5));
+
                         m = AddOrGetObject<Material>(line[1]);
                         e = AddOrGetObject<ElementIndexedTriangles>($"{g.name}_{line[1]}");
                         e.material = m.name;
@@ -142,48 +178,49 @@ namespace CPATool {
                             g.elements.Add(e.name);
                         break;
 
-                    case "o":
-                        string objName = line[1];
-                        // Collision object?
-                        if (line[1].Contains("!"))
-                            objName = line[1].Substring(0, 1 + Array.IndexOf(line[1].ToCharArray(), '!'));
-
-                        g = AddOrGetObject<Geometric>(objName);
-
-                        // SPO & Matrix
-                        var s = AddOrGetObject<SuperObject>("SPO_" + g.name);
-                        AddOrGetObject<Matrix>("SPO_" + g.name);
-                        s.matrix = "SPO_" + g.name;
-                        s.geometric = g.name;
-
-                        // Name-based sector linking/generation
-                        if (!int.TryParse(g.name.Split('_')[0], out int secnum))
-                            secnum = 1;
-                        var sct = AddOrGetObject<SuperObject>("SPO_sct" + secnum.ToString("00"));
-
-                        if (sct.matrix == null) {
-                            var sctMat = AddOrGetObject<Matrix>(sct.name);
-                            sct.matrix = sctMat.name;
-                            root.children.Add(sctMat.name);
-                        }
-                        if (!sct.children.Contains(s.name))
-                            sct.children.Add(s.name);
-                        break;
-
 
                     case "f":
+                        if (g == null)
+                            g = newObj("Object_" + Guid.NewGuid().ToString().Substring(0, 6));
+
                         var fline = line.Select(x => x.Split('/')).ToArray();
 
                         for (int l = 1; l < fline.Length - 2; l++) {
-                            Vertex v1 = new Vertex { position = verts[int.Parse(fline[1    ][0]) - 1], normal = nrms[int.Parse(fline[1    ][2]) - 1] };
-                            Vertex v2 = new Vertex { position = verts[int.Parse(fline[l + 1][0]) - 1], normal = nrms[int.Parse(fline[l + 1][2]) - 1] };
-                            Vertex v3 = new Vertex { position = verts[int.Parse(fline[l + 2][0]) - 1], normal = nrms[int.Parse(fline[l + 2][2]) - 1] };
-                            UV uv1 = new UV { coords = uvs[int.Parse(fline[1    ][1]) - 1] };
-                            UV uv2 = new UV { coords = uvs[int.Parse(fline[l + 1][1]) - 1] };
-                            UV uv3 = new UV { coords = uvs[int.Parse(fline[l + 2][1]) - 1] };
+                            int i1 = int.Parse(fline[1 + 0][0]) - 1;
+                            int i2 = int.Parse(fline[l + 1][0]) - 1;
+                            int i3 = int.Parse(fline[l + 2][0]) - 1;
 
-                            g.vertices.AddRange(new Vertex[] { v1, v2, v3 });
-                            e.uvs.AddRange(new UV[] { uv1, uv2, uv3 });
+                            // vertex position
+                            Vertex v1, v2, v3;
+
+                            var v1a = g.vertices.Where(x => x.position == verts[i1]);
+                            if (smooth == false || v1a.Count() == 0) g.vertices.Add(v1 = new Vertex { position = verts[i1] });
+                            else v1 = v1a.First();
+
+                            var v2a = g.vertices.Where(x => x.position == verts[i2]);
+                            if (smooth == false || v2a.Count() == 0) g.vertices.Add(v2 = new Vertex { position = verts[i2] });
+                            else v2 = v2a.First();
+
+                            var v3a = g.vertices.Where(x => x.position == verts[i3]);
+                            if (smooth == false || v3a.Count() == 0) g.vertices.Add(v3 = new Vertex { position = verts[i3] });
+                            else v3 = v3a.First();
+
+                            // vertex UV
+                            UV uv1 = null, uv2 = null, uv3 = null;
+                            if (uvs.Count > 0) {
+                                uv1 = new UV { coords = uvs[fline[1 + 0].Length > 1 ? int.Parse(fline[1 + 0][1]) - 1 : i1] };
+                                uv2 = new UV { coords = uvs[fline[l + 1].Length > 1 ? int.Parse(fline[l + 1][1]) - 1 : i2] };
+                                uv3 = new UV { coords = uvs[fline[l + 2].Length > 1 ? int.Parse(fline[l + 2][1]) - 1 : i3] };
+                                e.uvs.AddRange(new UV[] { uv1, uv2, uv3 });
+                            }
+
+                            // vertex normal
+                            if (nrms.Count > 0) {
+                                v1.normal = nrms[fline[1 + 0].Length > 2 ? int.Parse(fline[1 + 0][2]) - 1 : i1];
+                                v2.normal = nrms[fline[l + 1].Length > 2 ? int.Parse(fline[l + 1][2]) - 1 : i2];
+                                v3.normal = nrms[fline[l + 2].Length > 2 ? int.Parse(fline[l + 2][2]) - 1 : i3];
+                            }
+
 
                             e.faces.Add(new Face {
                                 v1 = g.vertices.IndexOf(v1),
@@ -202,7 +239,8 @@ namespace CPATool {
             // Materials
             if (mtllib == null)
                 return;
-            string mtlPath = $"{new FileInfo(path).DirectoryName}\\{mtllib}";
+            string directoryName = new FileInfo(path).DirectoryName;
+            string mtlPath = $"{directoryName}\\{mtllib}";
             file = new StreamReader(mtlPath);
 
             while (!file.EndOfStream) {
@@ -213,8 +251,15 @@ namespace CPATool {
                 var line = _line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
                 switch (line[0]) {
-                    case "newmtl": m = AddOrGetObject<Material>(line[1]); break;
-                    case "map_Kd": m.texture = _line.Substring(7); break;
+
+                    case "newmtl":
+                        m = AddOrGetObject<Material>(line[1]);
+                        break;
+
+                    case "map_Kd":
+                        string li = _line.Substring(7);
+                        m.texture = li.Contains(':') ? li : $"{directoryName}\\{li}";
+                        break;
                 }
             }
             file.Close();
