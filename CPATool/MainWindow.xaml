@@ -21,12 +21,18 @@
 
         <Grid Grid.Row="0" Grid.ColumnSpan="2">
             <Button x:Name="button_load" Content="Open" Margin="10,10,0,0" VerticalAlignment="Top" Height="21" HorizontalAlignment="Left" Width="90" Background="#FF1B1B1B" Foreground="#FFD8D8D8" Click="button_load_Click"/>
-            <Button x:Name="button_export" Content="Convert" Margin="212,10,0,0" VerticalAlignment="Top" Height="21" Background="#FF1B1B1B" Foreground="#FFD8D8D8" HorizontalAlignment="Left" Width="90" Click="button_export_Click"/>
+            <Button x:Name="button_export" Content="Convert" Margin="145,10,0,0" VerticalAlignment="Top" Height="21" Background="#FF1B1B1B" Foreground="#FFD8D8D8" HorizontalAlignment="Left" Width="90" Click="button_export_Click"/>
             <Label Margin="105,-8,0,0" Padding="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="38" VerticalAlignment="Top" Content="→" FontSize="36" Foreground="#FF6E6E6E" HorizontalAlignment="Left" Width="35"/>
-            <ComboBox x:Name="combo_filetype" Margin="145,10,0,0" VerticalAlignment="Top" Height="21" Background="#FF1B1B1B" Foreground="Black" HorizontalAlignment="Left" Width="62" SelectedIndex="0">
+            <ComboBox x:Name="combo_filetype" Margin="240,10,0,0" VerticalAlignment="Top" Height="21" Background="#FF1B1B1B" Foreground="Black" HorizontalAlignment="Left" Width="62" SelectedIndex="0">
                 <sys:String>MOD</sys:String>
                 <sys:String>OBJ</sys:String>
             </ComboBox>
+            <TextBox x:Name="textbox_scale" Margin="307,10,0,4" Text="1.0" TextChanged="TextBox_TextChanged" HorizontalAlignment="Left" Width="40" Background="#FF1B1B1B" Foreground="#FFBBC8DE" BorderBrush="#FF707070" SelectionBrush="#33FFFFFF">
+                <TextBox.ToolTip>
+                    <ToolTip>Scale factor</ToolTip>
+                </TextBox.ToolTip>
+            </TextBox>
+            <CheckBox x:Name="checkbox_flipfaces" Margin="352,12,0,4" Content="Flip Faces" Background="#FF1B1B1B" Foreground="#FFD8D8D8" BorderBrush="#FF707070" HorizontalAlignment="Left" Width="75" Checked="CheckBox_Checked"/>
         </Grid>
 
 

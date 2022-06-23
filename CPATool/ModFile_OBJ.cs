@@ -156,7 +156,7 @@ namespace CPATool {
 
 
                 switch (line[0]) {
-                    case "mtllib": mtllib = line[1]; break;
+                    case "mtllib": mtllib = _line.Substring(7); break;
 
                     case "v": verts.Add(new Vector3(float.Parse(line[1]), float.Parse(line[2]), float.Parse(line[3]))); break;
                     case "vn": nrms.Add(new Vector3(float.Parse(line[1]), float.Parse(line[2]), float.Parse(line[3]))); break;

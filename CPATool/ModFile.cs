@@ -14,6 +14,8 @@ namespace CPATool {
         public bool swapYZ = true;
         public bool exportMaterials = true;
         public const string authMessage = "Generated with CPA Tool";
+        public float scale = 1;
+        public bool flipFaces;
 
         public bool hasMaterials => exportMaterials && data.ContainsKey(typeof(Material));
 

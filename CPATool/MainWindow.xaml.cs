@@ -123,6 +123,15 @@ namespace CPATool {
             UpdateInspector((string)item.Header, item.Tag);
         }
 
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e) {
+            if (mod == null) return;
+            float.TryParse(textbox_scale.Text, out mod.scale);
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e) {
+            mod.flipFaces = (bool)checkbox_flipfaces.IsChecked;
+        }
+
         void button_load_Click(object sender, RoutedEventArgs e) {
             OpenLoadFileBrowser();
         }

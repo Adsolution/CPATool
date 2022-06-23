@@ -199,7 +199,7 @@ namespace CPATool {
                 tIndent++;
 
                 foreach (var v in g.vertices) {
-                    var vp = v.position;
+                    var vp = v.position * scale;
                     var vn = v.normal;
                     if (swapYZ) {
                         vp = new Vector3(vp.X, -vp.Z, vp.Y);
@@ -224,7 +224,7 @@ namespace CPATool {
                     foreach (var f in e.faces) {
                         var fn = f.normal;
                         if (swapYZ) fn = new Vector3(fn.X, -fn.Y, fn.Z);
-                        tWrite($"AddFaceUV({e.faces.IndexOf(f)},{f.v1},{f.v2},{f.v3},\"{fn.X}\",\"{fn.Y}\",\"{fn.Z}\",{f.uv1},{f.uv2},{f.uv3})");
+                        tWrite($"AddFaceUV({e.faces.IndexOf(f)},{f.v1},{(flipFaces ? f.v3 : f.v2)},{(flipFaces ? f.v2 : f.v3)},\"{fn.X}\",\"{fn.Y}\",\"{fn.Z}\",{f.uv1},{(flipFaces ? f.uv3 : f.uv2)},{(flipFaces ? f.uv2 : f.uv3)})");
                     }
                     foreach (var uv in e.uvs)
                         tWrite($"AddUV({e.uvs.IndexOf(uv)},\"{uv.coords.X}\",\"{uv.coords.Y}\")");
