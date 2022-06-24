@@ -4,6 +4,7 @@ using System.Text;
 using System.IO;
 using System.Linq;
 using System.Numerics;
+using System.Globalization;
 
 namespace CPATool {
     public partial class ModFile {
@@ -158,9 +159,9 @@ namespace CPATool {
                 switch (line[0]) {
                     case "mtllib": mtllib = _line.Substring(7); break;
 
-                    case "v": verts.Add(new Vector3(float.Parse(line[1]), float.Parse(line[2]), float.Parse(line[3]))); break;
-                    case "vn": nrms.Add(new Vector3(float.Parse(line[1]), float.Parse(line[2]), float.Parse(line[3]))); break;
-                    case "vt": uvs.Add(new Vector2(float.Parse(line[1]), float.Parse(line[2]))); break;
+                    case "v": verts.Add(new Vector3(float.Parse(line[1], ci), float.Parse(line[2], ci), float.Parse(line[3], ci))); break;
+                    case "vn": nrms.Add(new Vector3(float.Parse(line[1], ci), float.Parse(line[2], ci), float.Parse(line[3], ci))); break;
+                    case "vt": uvs.Add(new Vector2(float.Parse(line[1], ci), float.Parse(line[2], ci))); break;
 
                     //case "s": smooth = line[1] != "off"; break;
 

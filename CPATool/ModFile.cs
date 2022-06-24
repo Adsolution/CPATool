@@ -4,6 +4,7 @@ using System.Numerics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Globalization;
 
 namespace CPATool {
     public partial class ModFile {
@@ -18,6 +19,8 @@ namespace CPATool {
         public bool flipFaces;
 
         public bool hasMaterials => exportMaterials && data.ContainsKey(typeof(Material));
+
+        public static CultureInfo ci => CultureInfo.InvariantCulture;
 
 
         public Dictionary<string, T> GetObjectDictionary<T>() where T : CPAObject {

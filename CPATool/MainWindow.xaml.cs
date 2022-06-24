@@ -108,14 +108,31 @@ namespace CPATool {
         // ====================================== //
 
 
+        void button_load_Click(object sender, RoutedEventArgs e) {
+            try {
+                OpenLoadFileBrowser();
+            } catch (Exception ex) {
+                MessageBox.Show(ex.Message + "\n\n" + ex.StackTrace, "Error");
+            }
+        }
+
+
         void button_export_Click(object sender, RoutedEventArgs e) {
             Cursor = Cursors.Wait;
-            switch (combo_filetype.SelectedItem.ToString()) {
-                case "MOD": mod.ExportMOD(namePath); break;
-                case "OBJ": mod.ExportOBJ(namePath); break;
+
+            try {
+                switch (combo_filetype.SelectedItem.ToString()) {
+                    case "MOD": mod.ExportMOD(namePath); break;
+                    case "OBJ": mod.ExportOBJ(namePath); break;
+                }
+            } catch (Exception ex) {
+                MessageBox.Show(ex.Message + "\n\n" + ex.StackTrace, "Error");
             }
+
             Cursor = Cursors.Arrow;
         }
+
+
 
         private void tree_data_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e) {
             var item = (TreeViewItem)tree_data.SelectedItem;
@@ -130,10 +147,6 @@ namespace CPATool {
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e) {
             mod.flipFaces = (bool)checkbox_flipfaces.IsChecked;
-        }
-
-        void button_load_Click(object sender, RoutedEventArgs e) {
-            OpenLoadFileBrowser();
         }
     }
 }

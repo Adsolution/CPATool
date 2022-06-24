@@ -58,15 +58,15 @@ namespace CPATool {
                                     break;
 
                                 case "AmbientColor":
-                                    mat.ambientColor = new Vector3(float.Parse(c[1]), float.Parse(c[2]), float.Parse(c[3]));
+                                    mat.ambientColor = new Vector3(float.Parse(c[1], ci), float.Parse(c[2], ci), float.Parse(c[3], ci));
                                     break;
 
                                 case "DiffuseColor":
-                                    mat.diffuseColor = new Vector3(float.Parse(c[1]), float.Parse(c[2]), float.Parse(c[3]));
+                                    mat.diffuseColor = new Vector3(float.Parse(c[1], ci), float.Parse(c[2], ci), float.Parse(c[3], ci));
                                     break;
 
                                 case "SpecularColor":
-                                    mat.specularColor = new Vector4(float.Parse(c[1]), float.Parse(c[2]), float.Parse(c[3]), float.Parse(c[4]));
+                                    mat.specularColor = new Vector4(float.Parse(c[1], ci), float.Parse(c[2], ci), float.Parse(c[3], ci), float.Parse(c[4], ci));
                                     break;
 
                                 case "Texture":
@@ -97,7 +97,7 @@ namespace CPATool {
                                         v1 = int.Parse(c[2]),
                                         v2 = int.Parse(c[3]),
                                         v3 = int.Parse(c[4]),
-                                        normal = new Vector3(float.Parse(c[5]), float.Parse(c[6]), float.Parse(c[7])),
+                                        normal = new Vector3(float.Parse(c[5], ci), float.Parse(c[6], ci), float.Parse(c[7], ci)),
                                         uv1 = int.Parse(c[8]),
                                         uv2 = int.Parse(c[9]),
                                         uv3 = int.Parse(c[10]),
@@ -106,7 +106,7 @@ namespace CPATool {
 
                                 case "AddUV":
                                     el.uvs.Add(new UV {
-                                        coords = new Vector2(float.Parse(c[2]), float.Parse(c[3])),
+                                        coords = new Vector2(float.Parse(c[2], ci), float.Parse(c[3], ci)),
                                     });
                                     break;
                             }
@@ -123,8 +123,8 @@ namespace CPATool {
 
                                 case "AddVertex":
                                     geo.vertices.Add(new Vertex {
-                                        position = new Vector3(float.Parse(c[2]), float.Parse(c[3]), float.Parse(c[4])),
-                                        normal = new Vector3(float.Parse(c[5]), float.Parse(c[6]), float.Parse(c[7])),
+                                        position = new Vector3(float.Parse(c[2], ci), float.Parse(c[3], ci), float.Parse(c[4], ci)),
+                                        normal = new Vector3(float.Parse(c[5], ci), float.Parse(c[6], ci), float.Parse(c[7], ci)),
                                     });
                                     break;
 
@@ -144,7 +144,7 @@ namespace CPATool {
                             switch (c[0]) {
 
                                 case "MatrixTranslation":
-                                    mtx.translation = new Vector3(float.Parse(c[1]), float.Parse(c[2]), float.Parse(c[3]));
+                                    mtx.translation = new Vector3(float.Parse(c[1], ci), float.Parse(c[2], ci), float.Parse(c[3], ci));
                                     break;
                             }
                         }
