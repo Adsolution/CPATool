@@ -109,9 +109,10 @@ namespace CPATool {
             s.geometric = g.name;
 
             // Name-based sector linking/generation
-            if (!int.TryParse(g.name.Split('_')[0], out int secnum))
-                secnum = 1;
-            var sct = AddOrGetObject<SuperObject>("SPO_sct" + secnum.ToString("00"));
+            string secname = "Default";
+            if (g.name.Contains('@'))
+                secname = g.name.Split('@')[0];
+            var sct = AddOrGetObject<SuperObject>("SPO_sct" + secname);
 
             if (sct.matrix == null) {
                 var sctMat = AddOrGetObject<Matrix>(sct.name);
