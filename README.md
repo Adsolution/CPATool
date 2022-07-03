@@ -10,7 +10,7 @@
 
 ### LEVEL DESIGN WORKFLOW / STUFF TO KNOW:
 
-- Since OBJ has no hierarchy, sectors are simply defined by prepending a number (eg 01_ before an object's name. If you don't prepend a number, it'll default to the first sector.
+- Since OBJ has no hierarchy, sectors are simply defined by prepending a name using an "@", (eg "main@pipe01" before an object's name. If you don't prepend a name, it'll default to the default sector.
 
 - Textures can be in any format and source directory, as they are automatically converted and relocated. Placing them in the old required directory (graphics\Textures\[levelname]) is actually advised against.
 
