@@ -234,12 +234,19 @@ namespace CPATool {
             }
 
             foreach (var m in GetObjectDictionary<Material>().Values) {
-                if (string.IsNullOrEmpty(m.texture))
-                    continue;
-                var fi = new FileInfo(m.texture);
-                string newDir = $"{path}\\..\\..\\..\\graphics\\Textures\\{name}";
-                string newName = fi.Name.Replace(fi.Extension, ".tga");
-                string newPath = $"{newDir}\\{newName}";
+                bool hasTex = true;
+                if (string.IsNullOrEmpty(m.texture) || !File.Exists(m.texture))
+                    hasTex = false;
+
+                FileInfo fi;
+                string newDir = "", newName = "", newPath = "";
+
+                if (hasTex) {
+                    fi = new FileInfo(m.texture);
+                    newDir = $"{path}\\..\\..\\..\\graphics\\Textures\\{name}";
+                    newName = fi.Name.Replace(fi.Extension, ".tga");
+                    newPath = $"{newDir}\\{newName}";
+                }
                 
                 tWrite("{" + $"Material:{m.name}");
                 tIndent++;
@@ -254,8 +261,10 @@ namespace CPATool {
                 tIndent--;
                 tWrite("}");
 
-
                 // ==== Texture convert ====
+                if (!hasTex)
+                    continue;
+
                 if (!Directory.Exists(newDir))
                     Directory.CreateDirectory(newDir);
 
