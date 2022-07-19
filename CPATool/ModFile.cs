@@ -5,9 +5,14 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Globalization;
+using System.Threading;
 
 namespace CPATool {
     public partial class ModFile {
+        public ModFile() {
+            Thread.CurrentThread.CurrentCulture = ci;
+        }
+
         public Dictionary<Type, Dictionary<string, CPAObject>>
             data = new Dictionary<Type, Dictionary<string, CPAObject>>();
 
@@ -17,6 +22,7 @@ namespace CPATool {
         public const string authMessage = "Generated with CPA Tool";
         public float scale = 1;
         public bool flipFaces;
+        public bool tileMaterials = true;
 
         public bool hasMaterials => exportMaterials && data.ContainsKey(typeof(Material));
 
@@ -35,7 +41,12 @@ namespace CPATool {
 
 
         public T AddOrGetObject<T>(string key) where T : CPAObject {
-            key = key.Replace('.', '_').Replace(' ', '_');
+            key = key
+                .Replace('.', '_')
+                .Replace(' ', '_')
+                .Replace("(", "")
+                .Replace(")", "")
+                ;
 
             if (!data.ContainsKey(typeof(T)))
                 data.Add(typeof(T), new Dictionary<string, CPAObject>());

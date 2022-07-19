@@ -38,6 +38,7 @@ namespace CPATool {
                     if (swapYZ) pos = new Vector3(pos.X, pos.Z, pos.Y);
                     tWrite($"{pos.X} {pos.Y} {pos.Z} ", false);
                 }
+
                 tWrite($"<technique_common>");
                 tIndent++;
                 tWrite($"<accessor source=\"#{g.Key}-mesh-positions-array\" count=\"{g.Value.vertices.Count}\" stride=\"3\">");

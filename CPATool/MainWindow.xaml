@@ -32,7 +32,8 @@
                     <ToolTip>Scale factor</ToolTip>
                 </TextBox.ToolTip>
             </TextBox>
-            <CheckBox x:Name="checkbox_flipfaces" Margin="352,12,0,4" Content="Flip Faces" Background="#FF1B1B1B" Foreground="#FFD8D8D8" BorderBrush="#FF707070" HorizontalAlignment="Left" Width="75" Checked="CheckBox_Checked"/>
+            <CheckBox x:Name="checkbox_flipfaces" Margin="352,12,0,4" Content="Flip Faces" Background="#FFE9E9E9" Foreground="#FFD8D8D8" BorderBrush="#FF707070" HorizontalAlignment="Left" Width="75" Checked="CheckBox_Checked"/>
+            <CheckBox x:Name="checkbox_tilematerials" Margin="432,12,0,4" Content="Tile Materials" Background="#FFE9E9E9" Foreground="#FFD8D8D8" BorderBrush="#FF707070" HorizontalAlignment="Left" Width="90" Checked="TileMaterials_Checked" IsChecked="True"/>
         </Grid>
 
 

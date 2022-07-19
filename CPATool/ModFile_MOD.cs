@@ -58,15 +58,15 @@ namespace CPATool {
                                     break;
 
                                 case "AmbientColor":
-                                    mat.ambientColor = new Vector3(float.Parse(c[1], ci), float.Parse(c[2], ci), float.Parse(c[3], ci));
+                                    mat.ambientColor = new Vector3(float.Parse(c[1]), float.Parse(c[2]), float.Parse(c[3]));
                                     break;
 
                                 case "DiffuseColor":
-                                    mat.diffuseColor = new Vector3(float.Parse(c[1], ci), float.Parse(c[2], ci), float.Parse(c[3], ci));
+                                    mat.diffuseColor = new Vector3(float.Parse(c[1]), float.Parse(c[2]), float.Parse(c[3]));
                                     break;
 
                                 case "SpecularColor":
-                                    mat.specularColor = new Vector4(float.Parse(c[1], ci), float.Parse(c[2], ci), float.Parse(c[3], ci), float.Parse(c[4], ci));
+                                    mat.specularColor = new Vector4(float.Parse(c[1]), float.Parse(c[2]), float.Parse(c[3]), float.Parse(c[4]));
                                     break;
 
                                 case "Texture":
@@ -97,7 +97,7 @@ namespace CPATool {
                                         v1 = int.Parse(c[2]),
                                         v2 = int.Parse(c[3]),
                                         v3 = int.Parse(c[4]),
-                                        normal = new Vector3(float.Parse(c[5], ci), float.Parse(c[6], ci), float.Parse(c[7], ci)),
+                                        normal = new Vector3(float.Parse(c[5]), float.Parse(c[6]), float.Parse(c[7])),
                                         uv1 = int.Parse(c[8]),
                                         uv2 = int.Parse(c[9]),
                                         uv3 = int.Parse(c[10]),
@@ -106,7 +106,7 @@ namespace CPATool {
 
                                 case "AddUV":
                                     el.uvs.Add(new UV {
-                                        coords = new Vector2(float.Parse(c[2], ci), float.Parse(c[3], ci)),
+                                        coords = new Vector2(float.Parse(c[2]), float.Parse(c[3])),
                                     });
                                     break;
                             }
@@ -123,8 +123,8 @@ namespace CPATool {
 
                                 case "AddVertex":
                                     geo.vertices.Add(new Vertex {
-                                        position = new Vector3(float.Parse(c[2], ci), float.Parse(c[3], ci), float.Parse(c[4], ci)),
-                                        normal = new Vector3(float.Parse(c[5], ci), float.Parse(c[6], ci), float.Parse(c[7], ci)),
+                                        position = new Vector3(float.Parse(c[2]), float.Parse(c[3]), float.Parse(c[4])),
+                                        normal = new Vector3(float.Parse(c[5]), float.Parse(c[6]), float.Parse(c[7])),
                                     });
                                     break;
 
@@ -144,7 +144,7 @@ namespace CPATool {
                             switch (c[0]) {
 
                                 case "MatrixTranslation":
-                                    mtx.translation = new Vector3(float.Parse(c[1], ci), float.Parse(c[2], ci), float.Parse(c[3], ci));
+                                    mtx.translation = new Vector3(float.Parse(c[1]), float.Parse(c[2]), float.Parse(c[3]));
                                     break;
                             }
                         }
@@ -244,7 +244,7 @@ namespace CPATool {
                 if (hasTex) {
                     fi = new FileInfo(m.texture);
                     newDir = $"{path}\\..\\..\\..\\graphics\\Textures\\{name}";
-                    newName = fi.Name.Replace(fi.Extension, ".tga");
+                    newName = fi.Name.Replace(fi.Extension, $"{(tileMaterials ? "_txy" : "")}.tga");
                     newPath = $"{newDir}\\{newName}";
                 }
                 

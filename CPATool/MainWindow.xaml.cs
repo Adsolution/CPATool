@@ -145,6 +145,12 @@ namespace CPATool {
             float.TryParse(textbox_scale.Text, out mod.scale);
         }
 
+
+
+        private void TileMaterials_Checked(object sender, RoutedEventArgs e) {
+            mod.tileMaterials = (bool)checkbox_tilematerials.IsChecked;
+        }
+
         private void CheckBox_Checked(object sender, RoutedEventArgs e) {
             mod.flipFaces = (bool)checkbox_flipfaces.IsChecked;
         }

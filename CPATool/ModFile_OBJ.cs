@@ -160,9 +160,9 @@ namespace CPATool {
                 switch (line[0]) {
                     case "mtllib": mtllib = _line.Substring(7); break;
 
-                    case "v": verts.Add(new Vector3(float.Parse(line[1], ci), float.Parse(line[2], ci), float.Parse(line[3], ci))); break;
-                    case "vn": nrms.Add(new Vector3(float.Parse(line[1], ci), float.Parse(line[2], ci), float.Parse(line[3], ci))); break;
-                    case "vt": uvs.Add(new Vector2(float.Parse(line[1], ci), float.Parse(line[2], ci))); break;
+                    case "v": verts.Add(new Vector3(float.Parse(line[1]), float.Parse(line[2]), float.Parse(line[3]))); break;
+                    case "vn": nrms.Add(new Vector3(float.Parse(line[1]), float.Parse(line[2]), float.Parse(line[3]))); break;
+                    case "vt": uvs.Add(new Vector2(float.Parse(line[1]), float.Parse(line[2]))); break;
 
                     //case "s": smooth = line[1] != "off"; break;
 
@@ -210,9 +210,9 @@ namespace CPATool {
                             // vertex UV
                             UV uv1 = null, uv2 = null, uv3 = null;
                             if (uvs.Count > 0) {
-                                uv1 = new UV { coords = uvs[fline[1 + 0].Length > 1 ? int.Parse(fline[1 + 0][1]) - 1 : i1] };
-                                uv2 = new UV { coords = uvs[fline[l + 1].Length > 1 ? int.Parse(fline[l + 1][1]) - 1 : i2] };
-                                uv3 = new UV { coords = uvs[fline[l + 2].Length > 1 ? int.Parse(fline[l + 2][1]) - 1 : i3] };
+                                uv1 = new UV { coords = uvs[fline[1 + 0].Length > 1 && !string.IsNullOrEmpty(fline[1 + 0][1]) ? int.Parse(fline[1 + 0][1]) - 1 : i1] };
+                                uv2 = new UV { coords = uvs[fline[l + 1].Length > 1 && !string.IsNullOrEmpty(fline[l + 1][1]) ? int.Parse(fline[l + 1][1]) - 1 : i2] };
+                                uv3 = new UV { coords = uvs[fline[l + 2].Length > 1 && !string.IsNullOrEmpty(fline[l + 2][1]) ? int.Parse(fline[l + 2][1]) - 1 : i3] };
                                 e.uvs.AddRange(new UV[] { uv1, uv2, uv3 });
                             }
 
