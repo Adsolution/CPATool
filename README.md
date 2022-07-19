@@ -1,6 +1,6 @@
 ### HOW TO USE:
 
-1. Place the exported .obj of your level in the same place you would have the MOD exported (World\levels\[levelname]).
+1. Place the exported .obj (and .mtl) of your level in the same place you would have the MOD exported (World\levels\[levelname]).
 
 2. Open CPATool, load the .obj, and press Convert. A .mod and .spo will be created in the same directory as the .obj.
 
