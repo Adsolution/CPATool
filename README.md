@@ -18,4 +18,4 @@
 
 - Resetting XForm no longer necessary.
 
-- Material names can be left default without issue, as bad characters (sapces and periods) are replaced.
+- Material names can be left default without issue, as bad characters (such as spaces and periods) are replaced.
