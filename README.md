@@ -1,4 +1,4 @@
-This is a tool that makes level creation for CPA (the engine Rayman 2 runs on) significantly more convenient on modern platforms. Instead of requiring 3ds Max 8 and Ubisoft's official .MOD plugin to export level geometry to the engine, you can simply use this tool to convert any generic .OBJ file (exported from any modelling software, such as Blender) straight to .MOD.
+This is a tool that makes level creation for CPA (the engine Rayman 2 runs on) significantly more convenient for modern platforms. Instead of requiring 3ds Max 8 and Ubisoft's official .MOD plugin to export level geometry to the engine, you can simply use this tool to convert any generic .OBJ file (exported from any modelling software, such as Blender) straight to .MOD.
 
 ### HOW TO USE:
 
